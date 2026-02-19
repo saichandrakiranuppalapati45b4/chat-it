@@ -29,7 +29,7 @@ export default function LoginScreen({ navigation }) {
     }, []);
 
     const handleLogin = async () => {
-        const input = username.trim().toLowerCase();
+        const input = username.trim(); // Removed .toLowerCase() to allow exact match
         const passwordInput = password.trim();
 
         if (!input || !passwordInput) {
@@ -40,11 +40,18 @@ export default function LoginScreen({ navigation }) {
         setLoading(true);
         try {
             // Look up the email from the database using the username
-            // This calls a Supabase RPC function that securely queries auth.users
             const { data: email, error: lookupError } = await supabase
                 .rpc('get_email_by_username', { input_username: input });
 
-            if (lookupError || !email) {
+            if (lookupError) {
+                console.error('Lookup Error:', lookupError);
+                // Helpful for debugging: show if function is missing
+                alert(`Login Error: ${lookupError.message}`);
+                setLoading(false);
+                return;
+            }
+
+            if (!email) {
                 alert('Username not found. Please check your username and try again.');
                 setLoading(false);
                 return;
