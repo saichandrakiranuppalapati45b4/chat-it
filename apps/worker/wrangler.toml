@@ -1,0 +1,75 @@
+name = "chat-it-worker"
+main = "src/index.ts"
+compatibility_date = "2025-02-14"
+compatibility_flags = ["nodejs_compat"]
+
+# ==============================================================================
+# PRODUCTION ENVIRONMENT (Target: wrangler deploy --env production)
+# ==============================================================================
+[vars]
+ENVIRONMENT = "production"
+FRONTEND_ORIGIN = "https://YOUR_ACTUAL_CHATIT_FRONTEND_DOMAIN_HERE"
+RESEND_FROM_EMAIL = "Chat-it <noreply@YOUR_VERIFIED_SENDER_DOMAIN_HERE>"
+FIREBASE_PROJECT_ID = "chat-it-eeb44"
+
+[[kv_namespaces]]
+binding = "OTP_STORE"
+id = "chatit_otp_store_production_placeholder"
+
+[durable_objects]
+bindings = [
+  { name = "RATE_LIMITER_DO", class_name = "AuthRateLimiter" }
+]
+
+[[migrations]]
+tag = "v1"
+new_classes = ["AuthRateLimiter"]
+
+[env.production]
+name = "chat-it-worker"
+
+[env.production.vars]
+ENVIRONMENT = "production"
+# DEPLOYMENT BLOCKER: Replace placeholder with your actual deployed frontend origin
+# (e.g. "https://chat-it.pages.dev" or custom domain). Localhost is strictly disallowed in production.
+FRONTEND_ORIGIN = "https://YOUR_ACTUAL_CHATIT_FRONTEND_DOMAIN_HERE"
+
+# DEPLOYMENT BLOCKER: Replace placeholder with your verified sending domain in Resend
+# (e.g. "Chat-it <noreply@yourdomain.com>"). Sandbox onboarding@resend.dev is prohibited in production.
+RESEND_FROM_EMAIL = "Chat-it <noreply@YOUR_VERIFIED_SENDER_DOMAIN_HERE>"
+
+FIREBASE_PROJECT_ID = "chat-it-eeb44"
+
+# Production Cloudflare KV Namespace for OTP storage
+# DEPLOYMENT BLOCKER: Replace placeholder ID below with the actual 32-character hex ID
+# generated via: npx wrangler kv namespace create OTP_STORE
+[[env.production.kv_namespaces]]
+binding = "OTP_STORE"
+id = "chatit_otp_store_production_placeholder"
+
+# Production Durable Object for atomic rate limiting and state coordination
+[env.production.durable_objects]
+bindings = [
+  { name = "RATE_LIMITER_DO", class_name = "AuthRateLimiter" }
+]
+
+# ==============================================================================
+# DEVELOPMENT ENVIRONMENT (Target: wrangler dev --env development)
+# ==============================================================================
+[env.development]
+name = "chat-it-worker-dev"
+
+[env.development.vars]
+ENVIRONMENT = "development"
+FRONTEND_ORIGIN = "http://localhost:5173"
+RESEND_FROM_EMAIL = "onboarding@resend.dev"
+FIREBASE_PROJECT_ID = "chat-it-eeb44"
+
+[[env.development.kv_namespaces]]
+binding = "OTP_STORE"
+id = "chatit_otp_store_dev"
+
+[env.development.durable_objects]
+bindings = [
+  { name = "RATE_LIMITER_DO", class_name = "AuthRateLimiter" }
+]
