@@ -52,7 +52,7 @@ function ProtectedRoute({ children }: { children: React.ReactNode }) {
           <p className="mt-2 text-xs leading-relaxed text-[#627895]">
             Chat-it authentication is not yet configured. Please configure your Firebase environment variables in{" "}
             <code className="rounded bg-slate-100 px-1 py-0.5 font-mono text-[11px] text-slate-800">
-              apps/web/.env
+              frontend/.env
             </code>{" "}
             before accessing Chat-it.
           </p>

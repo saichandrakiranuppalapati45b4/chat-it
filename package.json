@@ -3,18 +3,19 @@
   "private": true,
   "version": "0.1.0",
   "workspaces": [
-    "apps/web",
-    "apps/worker"
+    "frontend",
+    "backend"
   ],
   "scripts": {
-    "dev": "npm run dev --workspace=apps/web",
-    "dev:web": "npm run dev --workspace=apps/web",
-    "dev:worker": "npm run dev --workspace=apps/worker",
-    "deploy:worker": "npm run deploy --workspace=apps/worker",
-    "test:worker": "npm run test --workspace=apps/worker",
-    "build": "npm run build --workspace=apps/web",
-    "build:web": "npm run build --workspace=apps/web",
-    "build:worker": "npm run build --workspace=apps/worker",
-    "lint": "npm run lint --workspace=apps/web"
+    "dev:frontend": "npm run dev --workspace=frontend",
+    "dev:backend": "npm run dev --workspace=backend",
+    "build:frontend": "npm run build --workspace=frontend",
+    "build:backend": "npm run build --workspace=backend",
+    "test:backend": "npm run test --workspace=backend",
+    "deploy:frontend": "echo \"Frontend deploys automatically via Cloudflare Pages on git push to main (Output: frontend/dist)\"",
+    "deploy:backend": "npm run deploy --workspace=backend",
+    "build": "npm run build:frontend",
+    "lint": "npm run lint --workspace=frontend",
+    "test": "npm run test:backend"
   }
 }
