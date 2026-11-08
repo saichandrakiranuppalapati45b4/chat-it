@@ -7,6 +7,7 @@
     "dev": "wrangler dev --env development",
     "deploy": "wrangler deploy --env production",
     "typecheck": "tsc --noEmit",
+    "build": "tsc --noEmit && wrangler deploy --dry-run --env production",
     "test": "node --experimental-strip-types --test test/otpService.test.ts"
   },
   "devDependencies": {

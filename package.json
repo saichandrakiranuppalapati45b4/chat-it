@@ -2,14 +2,19 @@
   "name": "chat-it",
   "private": true,
   "version": "0.1.0",
-  "packageManager": "pnpm@11.6.0",
+  "workspaces": [
+    "apps/web",
+    "apps/worker"
+  ],
   "scripts": {
-    "dev": "pnpm --filter web dev",
-    "dev:web": "pnpm --filter web dev",
-    "dev:worker": "pnpm --filter worker dev",
-    "deploy:worker": "pnpm --filter worker deploy",
-    "test:worker": "pnpm --filter worker test",
-    "build": "pnpm --filter web build",
-    "lint": "pnpm --filter web lint"
+    "dev": "npm run dev --workspace=apps/web",
+    "dev:web": "npm run dev --workspace=apps/web",
+    "dev:worker": "npm run dev --workspace=apps/worker",
+    "deploy:worker": "npm run deploy --workspace=apps/worker",
+    "test:worker": "npm run test --workspace=apps/worker",
+    "build": "npm run build --workspace=apps/web",
+    "build:web": "npm run build --workspace=apps/web",
+    "build:worker": "npm run build --workspace=apps/worker",
+    "lint": "npm run lint --workspace=apps/web"
   }
 }

@@ -8,13 +8,13 @@ compatibility_flags = ["nodejs_compat"]
 # ==============================================================================
 [vars]
 ENVIRONMENT = "production"
-FRONTEND_ORIGIN = "https://YOUR_ACTUAL_CHATIT_FRONTEND_DOMAIN_HERE"
-RESEND_FROM_EMAIL = "Chat-it <noreply@YOUR_VERIFIED_SENDER_DOMAIN_HERE>"
+FRONTEND_ORIGIN = "https://your-actual-pages-domain.pages.dev"
+RESEND_FROM_EMAIL = "Chat-it <noreply@example.com>"
 FIREBASE_PROJECT_ID = "chat-it-eeb44"
 
 [[kv_namespaces]]
 binding = "OTP_STORE"
-id = "chatit_otp_store_production_placeholder"
+id = "7532991083564a46ad7068d508f41543"
 
 [durable_objects]
 bindings = [
@@ -45,7 +45,7 @@ FIREBASE_PROJECT_ID = "chat-it-eeb44"
 # generated via: npx wrangler kv namespace create OTP_STORE
 [[env.production.kv_namespaces]]
 binding = "OTP_STORE"
-id = "chatit_otp_store_production_placeholder"
+id = "7532991083564a46ad7068d508f41543"
 
 # Production Durable Object for atomic rate limiting and state coordination
 [env.production.durable_objects]
@@ -67,9 +67,10 @@ FIREBASE_PROJECT_ID = "chat-it-eeb44"
 
 [[env.development.kv_namespaces]]
 binding = "OTP_STORE"
-id = "chatit_otp_store_dev"
+id = "3c625249857d484ba0ebe5123e0f572d"
 
 [env.development.durable_objects]
 bindings = [
   { name = "RATE_LIMITER_DO", class_name = "AuthRateLimiter" }
 ]
+
